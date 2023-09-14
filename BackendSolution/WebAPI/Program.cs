@@ -1,3 +1,8 @@
+using Contexto;
+using Microsoft.EntityFrameworkCore;
+using Perfiles;
+using Repositorios;
+
 namespace WebAPI
 {
     public class Program
@@ -12,6 +17,16 @@ namespace WebAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            // Contexto de base de datos.
+            builder.Services.AddDbContext<PersonaContexto>(options =>
+            {
+                options.UseSqlServer(builder.Configuration["ConnectionStrings:ConexionDatos"]);
+            });
+
+            // Servicios
+            builder.Services.AddScoped<IRepositorioPersona, RepositorioPersona>();
+            builder.Services.AddAutoMapper(typeof(PersonaPerfil));
 
             var app = builder.Build();
 
