@@ -23,6 +23,15 @@ namespace WebAPI
             {
                 options.UseSqlServer(builder.Configuration["ConnectionStrings:ConexionDatos"]);
             });
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
 
             // Servicios
             builder.Services.AddScoped<IRepositorioPersona, RepositorioPersona>();
@@ -36,6 +45,8 @@ namespace WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors("AllowAll");
 
             app.UseHttpsRedirection();
 

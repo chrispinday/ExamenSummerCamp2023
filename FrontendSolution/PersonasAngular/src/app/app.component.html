@@ -1,0 +1,67 @@
+<h1>Personas</h1>
+<div class="row px-5 ">
+  <div class="col-lg-6">
+    <h3>Crear persona</h3>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="nombre">Nombre: </label>
+        <input type="text" id="nombre" formControlName="nombre" class="form-control" />
+        <div *ngIf="myForm.get('nombre')?.hasError('required') && myForm.get('nombre')?.touched" class="text-danger">
+          Nombre is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="apellidos">Apellidos: </label>
+        <input type="text" id="apellidos" formControlName="apellidos" class="form-control" />
+        <div *ngIf="myForm.get('apellidos')?.hasError('required') && myForm.get('apellidos')?.touched"
+          class="text-danger">
+          Apellidos are required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="edad">Edad: </label>
+        <input type="edad" id="edad" formControlName="edad" class="form-control" />
+        <div *ngIf="myForm.get('edad')?.hasError('required') && myForm.get('edad')?.touched" class="text-danger">
+          Edad is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="telefono">Telefono: </label>
+        <input type="telefono" id="telefono" formControlName="telefono" class="form-control" />
+      </div>
+
+      <div *ngIf="createErrorMessage" class="text-danger">
+        {{ createErrorMessage }}
+      </div>
+
+      <!-- <button type="submit" class="btn btn-primary">Dar de alta</button> -->
+      <button type="submit" [disabled]="myForm.invalid" class="btn btn-primary">Dar de alta</button>
+    </form>
+  </div>
+
+  <div class="col-lg-6">
+    <h3>Lista de personas</h3>
+    <table class="table" *ngIf='listPersonas.length'>
+      <thead>
+        <tr>
+          <th scope="col">*</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Edad</th>
+          <th scope="col">Telefono</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let persona of listPersonas; let i = index">
+          <th scope="row">{{i + 1}}</th>
+          <td>{{persona.nombre}} {{persona.apellidos}}</td>
+          <td>{{persona.edad}}</td>
+          <td>{{persona.telefono}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf='!listPersonas.length'><strong>No hay personas. Crea una!.</strong></div>
+</div>

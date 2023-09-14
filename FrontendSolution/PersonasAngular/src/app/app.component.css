@@ -1,0 +1,10 @@
+.text-danger{
+    color: #ff3333;
+}
+
+.input {
+    margin: 1rem 0 2rem 0;
+    padding: 1rem;
+    background: #ffffffce;
+}
+
